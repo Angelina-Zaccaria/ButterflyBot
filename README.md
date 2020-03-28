@@ -1,9 +1,9 @@
 # ButterflyBot
 A SlackBot that rewards students for what matters
 
-<strong>Team members:</strong><br>
-Brittany DiFede @bcd2998<br>
-Olivia Powers @olivepowers<br>
-Angelina Zaccaria @Angelina-Zaccaria<br>
+<h3>Team members:</h3>
+<p>Brittany DiFede @bcd2998
+Olivia Powers @olivepowers
+Angelina Zaccaria @Angelina-Zaccaria</p>
 
-<a href="DESIGN.md">Design Milestone</a>
+<p><a href="DESIGN.md">Design Milestone</a></p>
