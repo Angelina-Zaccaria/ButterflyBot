@@ -10,37 +10,36 @@ This would be a good solution for the current problem of schools switching to on
 
 ### Use Cases
 1. A student is rewarded for participating in class
-    * Preconditions:  
+    * **Preconditions:**  
       1. The teacher pre-defines a slack channel.
-    * Main Flow:
+    * **Main Flow:**
       1. Teacher adds bot to channel
       2. User interacts with the teacher/another student within a channel (e.g. replies to another student’s question in a thread) [S1]
       3. Bot will notify student they are being rewarded with a star in a direct message [S2]
       4. Reward progress will be displayed [S3]
-    * Subflows:
+    * **Subflows:**  
       [S1] Student utilizes the “@” function to directly communicate with another student  
       [S2] Bot will record the student being rewarded and update their reward status  
       [S3] The bot will update the total amount of stars that the student has  
-    * Alternate Flows:
+    * **Alternate Flows:**  
       [E1] The teacher has not set up a slack channel for students to communicate with each other  
       [E2] The teacher uses “@butterfly” to add the bot to a thread if the bot is not in the entire channel (e.g. to reward students who participate in a discussion thread)  
       [E3] The teacher manually has the bot give a student a star by interacting with the bot  
 2. A student is punished for their behavior
-    * Preconditions
+    * **Preconditions**
       1. The teacher pre-defines a slack channel for students to communicate within and adds the bot to the channel.
       2. The teacher has prefined what words are considered inappropriate 
-    * Main Flow
+    * **Main Flow**  
       1. The user interacts with the teacher/another student within the channel (e.g. The student replies to the teacher’s question/discussion in a thread) and performs an act that is associated with bad behavior [S1]
       2. The bot will notify the student and the teacher that a star has been taken away from the student [S2]
       3. The bot will update the total amount of stars that the student has [S3]
-    * Subflows
+    * **Subflows**  
       [S1] The user utilizes the “@” function to directly communicate with either the teacher or another student and performs an act that is associated with bad behavior  
       [S2] The bot will will remove a star from the student and notify the student and the teacher that a star has been taken away from the student  
       [S3] The bot will update the total amount of stars that the student has  
-    * Alternative Flows
+    * **Alternative Flows**  
       [E1] The teacher has not set up a slack channel for students to communicate with each other  
       [E2] The teacher manually has the bot remove a star from the student
-
 
 ### Design Sketches
 
