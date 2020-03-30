@@ -6,4 +6,4 @@ Brittany DiFede @bcd2998
 Olivia Powers @olivepowers  
 Angelina Zaccaria @Angelina-Zaccaria  
 
-[a relative link](Design.md)
+[DESIGN.md](DESIGN.md)
