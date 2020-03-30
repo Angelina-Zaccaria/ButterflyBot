@@ -42,7 +42,18 @@ This would be a good solution for the current problem of schools switching to on
       [E2] The teacher manually has the bot remove a star from the student
 
 ### Design Sketches
+Sequence Flow:
+![](DESIGN_images/sequence_flow.png)
 
-
+Storyboard:
+![](DESIGN_images/storyboard.png)
 
 ### Architecture Design
+![](DESIGN_images/preliminary_architecture_design.png)
+
+
+
+
+Create a diagram that illustrates the components of your bot, the platform it is embedded in, third party services it may use, data storage it may require, etc.
+Describe the architecture components in text.
+This section should be several paragraphs of text. This is the opportunity to really think through how you might build your system. Consider all the criteria listed here in your description. Generic architectures that do not properly reflect a solution will receive low scores.
