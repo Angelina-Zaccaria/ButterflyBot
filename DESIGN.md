@@ -46,7 +46,7 @@ Sequence Flow:
 ![](DESIGN_images/sequence_flow.png)
 
 Storyboard:  
-![](DESIGN_images/storyboard_v2.png)
+![](DESIGN_images/storyboard_v2.png)  
 *Updated 4/8/2020*
 
 ### Architecture Design
