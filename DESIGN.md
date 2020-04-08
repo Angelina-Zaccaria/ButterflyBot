@@ -45,7 +45,7 @@ This would be a good solution for the current problem of schools switching to on
 Sequence Flow:
 ![](DESIGN_images/sequence_flow.png)
 
-Storyboard:
+Storyboard:  
 ![](DESIGN_images/storyboard_v2.png)
 *Updated 4/8/2020*
 
