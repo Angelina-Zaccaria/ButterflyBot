@@ -4,6 +4,6 @@
 ### Team members:
 Brittany DiFede [@bcd2998](https://github.com/bcd2998/)  
 Olivia Powers [@olivepowers](https://github.com/olivepowers/)  
-Angelina Zaccaria [@Angelina-Zaccaria](https://github.com/Angelina-Zaccaria/)  
+Angelina Zaccaria [@Angelina-Zaccaria](https://github.com/Angelina-Zaccaria/) - hello!  
 
 [DESIGN.md](DESIGN.md)
