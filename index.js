@@ -1,15 +1,30 @@
 const SlackBot = require('slackbots');
 const axios = require('axios');
 
-const bot = new SlackBot({
-    token: '',
-    name: 'butterfly'
+var bot = new SlackBot({
+    name: 'butterfly',
+    token: process.env.TOKEN
 });
+
+// Retrieve api token from environment variable
+// bot.token = process.env.TOKEN;
+
+if( !bot.token )
+{
+    console.log(`There has been an issue w the token`);
+	// console.log(chalk`{red.bold TOKEN is not defined!}`);
+	// console.log(`Please set your environment variables with appropriate token.`);
+	// console.log(chalk`{italic You may need to refresh your shell in order for your changes to take place.}`);
+	process.exit(1);
+}
+
+// console.log(chalk.green(`Your token is: ${bot.token.substring(0,4)}...`));
+console.log(`Your token is: ${bot.token.substring(0,4)}...`);
 
 //start handler
 bot.on('start', () => {
     const params = {
-        icon_emoji: ':cat:'
+        icon_emoji: ':butterfly:'
     }
 
     bot.postMessageToChannel('general', 'Yay I work!', params);
@@ -23,6 +38,7 @@ bot.on('message', (data) => {
     if(data.type !== 'message') {
         return;
     }
+    console.log(data);
     handleMessage(data.text);
 });
 
@@ -48,7 +64,7 @@ function chuckJoke() {
         const joke = res.data.value.joke;
 
         const params = {
-            icon_emoji: ':laughing:'
+            icon_emoji: ':star:'
         }
     
         bot.postMessageToChannel('general', `Chuck Norris: ${joke}`, params);
@@ -57,11 +73,11 @@ function chuckJoke() {
 
 //tell a yo mama joke
 function yoMamaJoke() {
-    axios.get('http://api.yomomma.info').then(res => {
+    axios.get('http://api.icndb.com/jokes/random').then(res => {
         const joke = res.data.value.joke;
 
         const params = {
-            icon_emoji: ':laughing:'
+            icon_emoji: ':x:'
         }
     
         bot.postMessageToChannel('general', `Yo Mama: ${joke}`, params);
@@ -87,20 +103,3 @@ function runHelp() {
 
     bot.postMessageToChannel('general', `Type @butterfly with either 'chucknorris', 'yomama', or 'random' to get a joke`, params);
 }
-
-
-
-
-// var config = {};
-// // Retrieve our api token from the environment variables.
-// config.token = process.env.GITHUBTOKEN;
-
-// if( !config.token )
-// {
-// 	console.log(chalk`{red.bold GITHUBTOKEN is not defined!}`);
-// 	console.log(`Please set your environment variables with appropriate token.`);
-// 	console.log(chalk`{italic You may need to refresh your shell in order for your changes to take place.}`);
-// 	process.exit(1);
-// }
-
-// console.log(chalk.green(`Your token is: ${config.token.substring(0,4)}...`));
