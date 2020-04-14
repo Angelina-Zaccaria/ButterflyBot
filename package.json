@@ -1,0 +1,23 @@
+{
+  "name": "butterflybot",
+  "version": "1.0.0",
+  "description": "A SlackBot that rewards students for what matters",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Angelina-Zaccaria/ButterflyBot.git"
+  },
+  "author": "Brittany DiFede, Olivia Powers, and Angelina Zaccaria",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Angelina-Zaccaria/ButterflyBot/issues"
+  },
+  "homepage": "https://github.com/Angelina-Zaccaria/ButterflyBot#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "slackbots": "^1.2.0"
+  }
+}
