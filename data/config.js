@@ -14,12 +14,13 @@ const pool = mysql.createPool(config);
 //Export the pool
 module.exports = pool;
 
-config.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    var sql = "CREATE TABLE BadWords (word VARCHAR(255))";
-    config.query(sql, function(err, result) {
-        if (err) throw err;
-        console.log("Table created");
-    });
-});
+//Table Created
+// config.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     var sql = "CREATE TABLE BadWords (word VARCHAR(255))";
+//     config.query(sql, function(err, result) {
+//         if (err) throw err;
+//         console.log("Table created");
+//     });
+// });
