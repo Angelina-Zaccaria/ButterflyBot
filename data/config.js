@@ -37,12 +37,12 @@ module.exports = pool;
 // });
 
 //Add Teacher Column for Table Users
-config.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    var sql = "ALTER TABLE Users ADD COLUMN isTeacher VARCHAR(255)";
-    config.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Table altered");
-    });
-  });
+// config.connect(function(err) {
+//     if (err) throw err;
+//     console.log("Connected!");
+//     var sql = "ALTER TABLE Users ADD COLUMN isTeacher VARCHAR(255)";
+//     config.query(sql, function (err, result) {
+//       if (err) throw err;
+//       console.log("Table altered");
+//     });
+//   });
