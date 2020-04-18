@@ -16,9 +16,6 @@ const pool = mysql.createPool({
 });
 
 
-// Retrieve api token from environment variable
-//bot.token = process.env.TOKEN;
-
 if (!bot.token) {
     console.log(`There has been an issue w the token`);
     // console.log(chalk`{red.bold TOKEN is not defined!}`);
