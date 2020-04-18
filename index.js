@@ -1,3 +1,4 @@
+require('dotenv').config();
 const SlackBot = require('slackbots');
 const axios = require('axios');
 
