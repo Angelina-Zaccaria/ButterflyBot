@@ -1,3 +1,4 @@
+require('dotenv').config();
 const SlackBot = require('slackbots');
 const axios = require('axios');
 
@@ -5,7 +6,7 @@ var mysql = require('mysql');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: ''
+    token: process.env.TOKEN
 });
 
 const pool = mysql.createPool({
@@ -14,7 +15,6 @@ const pool = mysql.createPool({
     password: 'Password1@',
     database: 'db345',
 });
-
 
 if (!bot.token) {
     console.log(`There has been an issue w the token`);
