@@ -5,7 +5,7 @@ var mysql = require('mysql');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: 'xoxb-1009616333155-1059290081506-1Ly1SMVcfRWsRM3gGD5eJiZB'
+    token: process.env.TOKEN
 });
 
 const pool = mysql.createPool({
@@ -14,7 +14,6 @@ const pool = mysql.createPool({
     password: 'Password1@',
     database: 'db345',
 });
-
 
 if (!bot.token) {
     console.log(`There has been an issue w the token`);
