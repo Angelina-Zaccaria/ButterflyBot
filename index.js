@@ -5,7 +5,7 @@ var mysql = require('mysql');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: 'xoxb-1009616333155-1059290081506-1Ly1SMVcfRWsRM3gGD5eJiZB'
+    token: ''
 });
 
 const pool = mysql.createPool({
@@ -47,8 +47,6 @@ bot.on('message', (data) => {
 
     if (data.subtype !== 'bot_message') { // So bot doesn't reply to itself
 
-        bot.postMessage(data.user, 'hi!');
-
         console.log(data.user);
         let query = `SELECT * FROM Users WHERE id = '${data.user}'`;
         pool.query(query, function (err, result, fields) {
@@ -59,6 +57,8 @@ bot.on('message', (data) => {
                 console.log("User exists!");
             } else {
                 console.log("User does not exist!");
+                //Bots welcomes the new user
+                bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
                 var sql = `INSERT INTO Users (id, name, starcount, isTeacher) VALUES('${data.user}', 0, 0, 0)`;
                 pool.query(sql, function (err, result) {
                     if (err) console.log(err);
@@ -66,6 +66,14 @@ bot.on('message', (data) => {
                 });
             }
         });
+        console.log(data.text);
+        let badWords = "SELECT * FROM BadWords";
+        pool.query(badWords, function (err, result, fields) {
+            if (err) console.log(err);
+
+            console.log(result);
+
+        })
     }
     //     if (message compared with bad words table are equal){
     //         take away a Star, send a message, and send a message to the teacher
