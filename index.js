@@ -3,11 +3,11 @@ const axios = require('axios');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: process.env.TOKEN
+    process.env.TOKEN
 });
 
 // Retrieve api token from environment variable
-// bot.token = process.env.TOKEN;
+bot.token = process.env.TOKEN;
 
 if( !bot.token )
 {
