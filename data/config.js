@@ -46,3 +46,14 @@ module.exports = pool;
 //       console.log("Table altered");
 //     });
 //   });
+
+config.connect(function (err) {
+    if (err) throw err;
+    var sql = "SELECT * FROM Users";
+    //var sql = "DELETE FROM Users WHERE id = 'U010NM17WDU'";
+    config.query(sql, function (err, result) {
+        if (err) throw err;
+        //console.log("Number of records deleted: " + result.affectedRows);
+        console.log(result);
+    });
+})
