@@ -83,29 +83,34 @@ bot.on('message', async function (data) {
 
         // console.log(data.text);
         var star = await getStarCount(data.user);
-        console.log("HERE:")
+        console.log("Starcount before:")
         console.log(star);
-        console.log(typeof (star));
+        //console.log(typeof (star));
 
-        // let badWords = "SELECT * FROM BadWords";
-        // pool.query(badWords, function (err, result, fields) {
-        //     if (err) console.log(err);
-        //     for (i = 0; i < result.length; i++) {
-        //         if (data.text.includes(result[i].word)) {
-        //             star = star - 1;
-        //             console.log("New star");
-        //             console.log(star);
-        //             // var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
-        //             // pool.query(sql, function (err, result) {
-        //             //     if (err) throw err;
-        //             // })
-        //             console.log('bad word found');
-        //             //console.log(star);
-        //         }
-        //     }
-        //     // console.log(result);
-        //     //}
-        // });
+        let badWords = "SELECT * FROM BadWords";
+        pool.query(badWords, async function (err, result, fields) {
+            if (err) console.log(err);
+            for (i = 0; i < result.length; i++) {
+                if (data.text.includes(result[i].word)) {
+                    star = star - 1;
+                    console.log("New star");
+                    console.log(star);
+                    var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
+                    pool.query(sql, function (err, result) {
+                        if (err) throw err;
+                    })
+                    console.log('bad word found');
+                    //TO DO
+                    bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
+
+                    //console.log(star);
+                }
+            }
+            console.log("Starcount after:")
+            console.log(await getStarCount(data.user));
+            // console.log(result);
+            //}
+        });
     }
     //     if (message compared with bad words table are equal){
     //         take away a Star, send a message, and send a message to the teacher
