@@ -78,14 +78,12 @@ bot.on('message', async function (data) {
             }
         });
 
-
-
-
         // console.log(data.text);
         var star = await getStarCount(data.user);
-        console.log("Starcount before:")
-        console.log(star);
+        console.log(`Starcount before: ${star}`)
+        // console.log(star);
         //console.log(typeof (star));
+        var badWordsFound = false;
 
         let badWords = "SELECT * FROM BadWords";
         pool.query(badWords, async function (err, result, fields) {
@@ -93,25 +91,43 @@ bot.on('message', async function (data) {
             for (i = 0; i < result.length; i++) {
                 if (data.text.includes(result[i].word)) {
                     star = star - 1;
-                    console.log("New star");
-                    console.log(star);
+                    badWordsFound = true;
+                    // console.log("New star");
+                    // console.log(star);
                     var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
                     pool.query(sql, function (err, result) {
                         if (err) throw err;
                     })
                     console.log('bad word found');
-                    //TO DO
-                    bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
 
-                    //console.log(star);
+
                 }
             }
-            console.log("Starcount after:")
-            console.log(await getStarCount(data.user));
+            console.log(`Starcount after: ${await getStarCount(data.user)}`)
             // console.log(result);
             //}
+            if (badWordsFound === false) {
+                console.log("no bad words");
+                var wordCount = data.text.split(" ");
+                if (wordCount.length > 5) {
+                    var starVal = await getStarCount(data.user);
+                    starVal = starVal + 1;
+                    var sql = `UPDATE Users SET starcount = '${starVal}' WHERE id = '${data.user}'`;
+                    pool.query(sql, function (err, result) {
+                        if (err) throw err;
+                    })
+                    console.log("Message Greater than 5 words");
+                    console.log(starVal);
+                    bot.postMessage(data.user, `I have detected that you have responded with a sufficient message. Your current star count is now ${await getStarCount(data.user)}. Great Work!`);
+                }
+            }
+            else {
+                console.log("bad words found after");
+                bot.postMessage(data.user, `I have detected that you used innapropriate language. Your current star count is now ${await getStarCount(data.user)}`);
+            }
         });
     }
+
     //     if (message compared with bad words table are equal){
     //         take away a Star, send a message, and send a message to the teacher
     //     }
