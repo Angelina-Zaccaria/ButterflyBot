@@ -39,15 +39,18 @@ bot.on('start', () => {
 //Error handler
 bot.on('error', (err) => console.log(err));
 
-//Message handler
-bot.on('message', (data) => {
-    if (data.type !== 'message') {
-        return;
-    }
+async function getStarCount(data) {
+    let starfunction = `SELECT starcount FROM Users WHERE id = '${data.user}'`;
+    return new Promise((resolve, reject) => {
+        pool.query(starfunction, function (err, result, fields) {
+            if (err) reject(err);
+            resolve(Number(result[0].starcount));
+        });
+    });
+}
 
-    if (data.subtype !== 'bot_message') { // So bot doesn't reply to itself
-
-        console.log(data.user);
+async function detectUser(data) {
+    return new Promise((resolve, reject) => {
         let query = `SELECT * FROM Users WHERE id = '${data.user}'`;
         pool.query(query, function (err, result, fields) {
             if (err) console.log(err);
@@ -55,34 +58,83 @@ bot.on('message', (data) => {
             // console.log(result);
             if (result && result.length > 0) {
                 console.log("User exists!");
+                resolve();
             } else {
                 console.log("User does not exist!");
                 //Bots welcomes the new user
                 bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
                 var sql = `INSERT INTO Users (id, name, starcount, isTeacher) VALUES('${data.user}', 0, 0, 0)`;
                 pool.query(sql, function (err, result) {
-                    if (err) console.log(err);
+                    if (err) reject(err)
                     console.log("1 user inserted");
+                    resolve();
                 });
             }
         });
-        console.log(data.text);
-        let badWords = "SELECT * FROM BadWords";
-        pool.query(badWords, function (err, result, fields) {
-            if (err) console.log(err);
+    })
+}
 
-            console.log(result);
+async function detectBadWords(data) {
+    // console.log(data.text);
+    var star = await getStarCount(data);
+    console.log(`Starcount before: ${star}`)
+    // console.log(star);
+    //console.log(typeof (star));
+    var badWordsFound = false;
+    let badWords = "SELECT * FROM BadWords";
+    pool.query(badWords, async function (err, result, fields) {
+        if (err) console.log(err);
+        for (i = 0; i < result.length; i++) {
+            if (data.text.includes(result[i].word)) {
+                star = star - 1;
+                badWordsFound = true;
+                // console.log("New star");
+                // console.log(star);
+                var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
+                pool.query(sql, function (err, result) {
+                    if (err) reject(err);
+                })
+                console.log('bad word found');
+            }
+        }
+        console.log(`Starcount after: ${await getStarCount(data)}`)
+        // console.log(result);
+        //}
+        if (badWordsFound === false) {
+            console.log("no bad words");
+            var wordCount = data.text.split(" ");
+            if (wordCount.length > 5) {
+                var starVal = await getStarCount(data);
+                starVal = starVal + 1;
+                var sql = `UPDATE Users SET starcount = '${starVal}' WHERE id = '${data.user}'`;
+                pool.query(sql, function (err, result) {
+                    if (err) throw err;
+                    console.log("Message Greater than 5 words");
+                    console.log(starVal);
+                    bot.postMessage(data.user, `I have detected that you have responded with a sufficient message. Your current star count is now ${await getStarCount(data)}. Great Work!`);
+                })
+            }
+        }
+        else {
+            console.log("bad words found after");
+            bot.postMessage(data.user, `I have detected that you used inappropriate language. Your current star count is now ${await getStarCount(data)}`);
+        }
+    });
+}
 
-        })
+//Message handler
+bot.on('message', async function (data) {
+    if (data.type !== 'message') {
+        return;
     }
-    //     if (message compared with bad words table are equal){
-    //         take away a Star, send a message, and send a message to the teacher
-    //     }
-    //     else if (message is >5 words){
-    //         add a star, send a message
-    //     }
 
-    // }
+    if (data.subtype !== 'bot_message') { // So bot doesn't reply to itself
+
+        console.log(data.user);
+        await detectUser(data);
+        detectBadWords(data)
+
+    }
     console.log(data);
     // console.log(bot.getUserById(data.user).info);
     handleMessage(data.text);
@@ -106,6 +158,7 @@ bot.on('message', (data) => {
 //      console.error(error);
 //    }
 //  });
+
 
 //respond to data
 function handleMessage(message) {
@@ -168,32 +221,5 @@ function runHelp() {
 
     bot.postMessageToChannel('general', `Type @butterfly with either 'chucknorris', 'yomama', or 'random' to get a joke`, params);
 
-    //data.user is userID
 }
 
-
-// config.query("SELECT id FROM Users", function (err, result, fields) {
-        //     if (err) throw err;
-
-        //     console.log(typeof (result));
-        //     console.log(Object.keys(result));
-        //     for (let i = 0; i < result.length; i++) {
-        //         console.log(typeof (result[i]));
-        //         console.log(`result[i]: ${result[i]}`);
-        //     }
-
-        //     // results.forEach(function(result){
-        //     //     console.logF
-        //     // if (data.user !== result[i]) {
-        //     //     var sql = `INSERT INTO Users (id, name, starcount, isTeacher) VALUES('${data.user}', 0, 0, 0)`;
-        //     //     config.query(sql, function (err, result) {
-        //     //     if (err) throw err; 
-        //     //     console.log("1 user inserted");
-        //     //     });
-        //     // }
-        //     // };
-        // });
-
-        // config.query("SELECT * FROM Users", function(err, result, f) {
-        //     if (err) throw err;
-        //     console.log(result);
