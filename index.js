@@ -6,7 +6,8 @@ var mysql = require('mysql');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: process.env.TOKEN
+    token: 'xoxb-1009616333155-1059290081506-kgV6V1oqK6zRqOv2LUsujPyH'
+    //process.env.TOKEN
 });
 
 const pool = mysql.createPool({
@@ -39,8 +40,18 @@ bot.on('start', () => {
 //Error handler
 bot.on('error', (err) => console.log(err));
 
+async function getStarCount(userId) {
+    let starfunction = `SELECT starcount FROM Users WHERE id = '${userId}'`;
+    return new Promise((resolve, reject) => {
+        pool.query(starfunction, function (err, result, fields) {
+            if (err) reject(err);
+            resolve(Number(result[0].starcount));
+        });
+    });
+}
+
 //Message handler
-bot.on('message', (data) => {
+bot.on('message', async function (data) {
     if (data.type !== 'message') {
         return;
     }
@@ -66,14 +77,35 @@ bot.on('message', (data) => {
                 });
             }
         });
-        console.log(data.text);
-        let badWords = "SELECT * FROM BadWords";
-        pool.query(badWords, function (err, result, fields) {
-            if (err) console.log(err);
 
-            console.log(result);
 
-        })
+
+
+        // console.log(data.text);
+        var star = await getStarCount(data.user);
+        console.log("HERE:")
+        console.log(star);
+        console.log(typeof (star));
+
+        // let badWords = "SELECT * FROM BadWords";
+        // pool.query(badWords, function (err, result, fields) {
+        //     if (err) console.log(err);
+        //     for (i = 0; i < result.length; i++) {
+        //         if (data.text.includes(result[i].word)) {
+        //             star = star - 1;
+        //             console.log("New star");
+        //             console.log(star);
+        //             // var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
+        //             // pool.query(sql, function (err, result) {
+        //             //     if (err) throw err;
+        //             // })
+        //             console.log('bad word found');
+        //             //console.log(star);
+        //         }
+        //     }
+        //     // console.log(result);
+        //     //}
+        // });
     }
     //     if (message compared with bad words table are equal){
     //         take away a Star, send a message, and send a message to the teacher
@@ -106,6 +138,7 @@ bot.on('message', (data) => {
 //      console.error(error);
 //    }
 //  });
+
 
 //respond to data
 function handleMessage(message) {
