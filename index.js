@@ -6,8 +6,7 @@ var mysql = require('mysql');
 
 var bot = new SlackBot({
     name: 'butterfly',
-    token: 'xoxb-1009616333155-1059290081506-kgV6V1oqK6zRqOv2LUsujPyH'
-    //process.env.TOKEN
+    token: process.env.TOKEN
 });
 
 const pool = mysql.createPool({
