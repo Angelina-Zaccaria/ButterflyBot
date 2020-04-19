@@ -117,7 +117,7 @@ async function detectBadWords(data) {
         }
         else {
             console.log("bad words found after");
-            bot.postMessage(data.user, `I have detected that you used innapropriate language. Your current star count is now ${await getStarCount(data)}`);
+            bot.postMessage(data.user, `I have detected that you used inappropriate language. Your current star count is now ${await getStarCount(data)}`);
         }
     });
 }
