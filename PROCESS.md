@@ -17,7 +17,7 @@ This milestone consisted of two different iterations for the group. The first it
 In the second iteration, the group worked on the tasks assigned for the project at the end of the first iteration. Once a task was started within this iteration, the team was able to move this task from the "To do" section to the "In progress" section. Within this iteration, the group made commits for new features on branches to prevent merge conflicts that occur when multiple collaborators push to the master branch and then created pull requests through GitHub for other groupmates not present to review and ensure that when the branch is pushed to the master no issues would occur. Once these pull requests were approved, the group was able to merge these changes onto the master branch. Additionally, the branch for each new feature was able to be linked to the corresponding issue, further highlighting the connection. Once a task was completed, the team member who completed it was able to close the GitHub issue that it was associated with and move this task to the "Done" list within the kanban board. This method allowed the group to easily follow along with the progression of the project even if they were not present due to the extensvive documentation involved with branching and utilizing the kanban board.
 
 **The group's kanban board after the second iteration:**
-![](PROCESS_images/kanban_iteration2.png)
+![](PROCESS_images/kanban_iteration2.jpeg)
 
 This is how the group's kanban board sits at the completion of the process milestone.
 
