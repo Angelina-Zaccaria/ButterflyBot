@@ -31,7 +31,7 @@ console.log(`Your token is: ${bot.token.substring(0, 4)}...`);
 bot.on('start', () => {
     const params = {
         icon_emoji: ':butterfly:'
-    }
+    };
 
     bot.postMessageToChannel('general', 'Yay I work!', params);
 });
@@ -65,19 +65,19 @@ async function detectUser(data) {
                 bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
                 var sql = `INSERT INTO Users (id, name, starcount, isTeacher) VALUES('${data.user}', 0, 0, 0)`;
                 pool.query(sql, function (err, result) {
-                    if (err) reject(err)
+                    if (err) reject(err);
                     console.log("1 user inserted");
                     resolve();
                 });
             }
         });
-    })
+    });
 }
 
 async function detectBadWords(data) {
     // console.log(data.text);
     var star = await getStarCount(data);
-    console.log(`Starcount before: ${star}`)
+    console.log(`Starcount before: ${star}`);
     // console.log(star);
     //console.log(typeof (star));
     var badWordsFound = false;
@@ -93,11 +93,11 @@ async function detectBadWords(data) {
                 var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
                 pool.query(sql, function (err, result) {
                     if (err) reject(err);
-                })
+                });
                 console.log('bad word found');
             }
         }
-        console.log(`Starcount after: ${await getStarCount(data)}`)
+        console.log(`Starcount after: ${await getStarCount(data)}`);
         // console.log(result);
         //}
         if (badWordsFound === false) {
@@ -107,12 +107,12 @@ async function detectBadWords(data) {
                 var starVal = await getStarCount(data);
                 starVal = starVal + 1;
                 var sql = `UPDATE Users SET starcount = '${starVal}' WHERE id = '${data.user}'`;
-                pool.query(sql, function (err, result) {
+                pool.query(sql, async function (err, result) {
                     if (err) throw err;
                     console.log("Message Greater than 5 words");
                     console.log(starVal);
                     bot.postMessage(data.user, `I have detected that you have responded with a sufficient message. Your current star count is now ${await getStarCount(data)}. Great Work!`);
-                })
+                });
             }
         }
         else {
@@ -132,7 +132,7 @@ bot.on('message', async function (data) {
 
         console.log(data.user);
         await detectUser(data);
-        detectBadWords(data)
+        detectBadWords(data);
 
     }
     console.log(data);
