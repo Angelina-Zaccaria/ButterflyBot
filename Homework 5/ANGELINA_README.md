@@ -14,7 +14,7 @@ In future projects, I will certainly incorporate use cases and sequence flow dia
 **1. What was most helpful about implementing, testing, and integration in your bot project?**  
 [This video](https://www.youtube.com/watch?v=nyyXTIL3Hkw) was very helpful for getting the bot up and running initally and was a great place to start for implementing our project. Console logging all message data received by the bot code was one of the most useful testing methods we had, and we were able to parse this data to be used in the methods we created to implement the bot functionality.
 
-**2. What was most difficult? What would you do differently?** 
+**2. What was most difficult? What would you do differently?**  
 Figuring out where to start was very difficult since making a bot was a completely unfamiliar area for us. We initially attempted to get the bot working with the Events API, but when it didn't seem to be working we switched gears to using the Slackbots node module, which ended up not having the functionality we wanted. I think if we could do it differently, we would have given the Events API more time before giving up on it, or attempted both implementation options in parallel to see which seemed to be working out better. Alternatively, it seems that creating a Discord bot might have been a better option that we did not explore since we were very excited to create a bot for Slack, a platform that we use often.
 
 **3. What implementation, testing, and integration methods might you want to try again in the future on another project?**  
