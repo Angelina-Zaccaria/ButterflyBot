@@ -90,34 +90,40 @@ async function detectBadWords(data) {
                 badWordsFound = true;
                 // console.log("New star");
                 // console.log(star);
-                var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
-                pool.query(sql, function (err, result) {
-                    if (err) reject(err);
-                });
+                // var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
+                // pool.query(sql, function (err, result) {
+                //     if (err) reject(err);
+                // });
                 console.log('bad word found');
+                // console.log(`Starcount after: ${star}`);
             }
         }
-        console.log(`Starcount after: ${await getStarCount(data)}`);
+        // console.log(`Starcount after: ${await getStarCount(data)}`);
         // console.log(result);
         //}
         if (badWordsFound === false) {
             console.log("no bad words");
             var wordCount = data.text.split(" ");
             if (wordCount.length > 5) {
-                var starVal = await getStarCount(data);
-                starVal = starVal + 1;
-                var sql = `UPDATE Users SET starcount = '${starVal}' WHERE id = '${data.user}'`;
+                // var starVal = await getStarCount(data);
+                star = star + 1;
+                var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
                 pool.query(sql, async function (err, result) {
                     if (err) throw err;
                     console.log("Message Greater than 5 words");
-                    console.log(starVal);
-                    bot.postMessage(data.user, `I have detected that you have responded with a sufficient message. Your current star count is now ${await getStarCount(data)}. Great Work!`);
+                    console.log(`Starcount after: ${star}`);
+                    bot.postMessage(data.user, `I have detected that you have responded with a sufficient message. Your current star count is now ${star}. Great Work!`);
                 });
             }
         }
         else {
-            console.log("bad words found after");
-            bot.postMessage(data.user, `I have detected that you used inappropriate language. Your current star count is now ${await getStarCount(data)}`);
+            // console.log("bad words found after");
+            var sql = `UPDATE Users SET starcount = '${star}' WHERE id = '${data.user}'`;
+            pool.query(sql, function (err, result) {
+                if (err) reject(err);
+            });
+            console.log(`Starcount after: ${star}`);
+            bot.postMessage(data.user, `I have detected that you used inappropriate language. Your current star count is now ${star}`);
         }
     });
 }
