@@ -62,7 +62,7 @@ async function detectUser(data) {
             } else {
                 console.log("User does not exist!");
                 //Bots welcomes the new user
-                bot.postMessage(data.user, 'Hi, I am the Buterfly Bot! I will keep track of your reward points!');
+                bot.postMessage(data.user, 'Hi, I am the Butterfly Bot! I will keep track of your star count and reward you for participating in discussion!');
                 var sql = `INSERT INTO Users (id, name, starcount, isTeacher) VALUES('${data.user}', 0, 0, 0)`;
                 pool.query(sql, function (err, result) {
                     if (err) reject(err);
